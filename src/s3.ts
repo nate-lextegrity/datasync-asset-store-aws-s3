@@ -107,7 +107,7 @@ export class S3 {
         asset.ETag = s3Response.ETag
         asset.Key = s3Response.Key
         asset.Bucket = this.config.bucketParams.Bucket
-
+        asset._internal_url = s3Response.Location
         return resolve(asset)
       })
       .catch(reject)

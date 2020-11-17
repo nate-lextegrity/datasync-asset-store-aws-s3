@@ -79,3 +79,7 @@ export const start = (config?: IConfig) => {
     }
   })
 }
+
+export const getAssetLocation = (asset) => {
+  return asset.location;
+}

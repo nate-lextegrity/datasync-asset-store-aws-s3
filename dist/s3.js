@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.S3 = void 0;
 const debug_1 = __importDefault(require("debug"));
 const path_1 = require("path");
 const lodash_1 = require("lodash");
@@ -51,6 +52,7 @@ class S3 {
             asset.ETag = s3Response.ETag;
             asset.Key = s3Response.Key;
             asset.Bucket = this.config.bucketParams.Bucket;
+            asset._internal_url = s3Response.Location;
             return resolve(asset);
         })
             .catch(reject);

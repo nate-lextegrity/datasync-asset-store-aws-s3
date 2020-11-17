@@ -19,4 +19,5 @@ export interface ILogger {
 export declare const setConfig: (config: IConfig) => void;
 export declare const getConfig: () => IConfig;
 export { setLogger };
-export declare const start: (config?: IConfig) => Promise<{}>;
+export declare const start: (config?: IConfig) => Promise<unknown>;
+export declare const getAssetLocation: (asset: any) => any;
