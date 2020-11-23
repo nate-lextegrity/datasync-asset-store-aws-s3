@@ -1,9 +1,9 @@
 import Debug from 'debug'
-import { join } from 'path'
 import { cloneDeep } from 'lodash'
+import { join } from 'path'
 import request from 'request'
 import stream from 'stream'
-import { validatePublishedAsset, validateUnpublishedAsset, validateDeletedAsset } from './util/validations'
+import { validateDeletedAsset, validatePublishedAsset, validateUnpublishedAsset } from './util/validations'
 
 const debug = Debug('s3')
 
@@ -39,13 +39,13 @@ interface IAsset {
  * @returns {S3} Returns S3 instance
  */
 export class S3 {
-	private config: any
+  private config: any
   private s3: any
 
-	constructor (s3, config) {
+  constructor (s3, config) {
     this.config = config.assetStore
     this.s3 = s3
-	}
+  }
 
   /**
    * @public
@@ -56,16 +56,16 @@ export class S3 {
    * const s3 = new S3(awsS3Instance, appConfig)
    * return s3.download(asset: Iasset)
    *  .then((uploadResponse) => console.log)
-   * 
+   *
    * @returns {Promise} Returns the uploaded file details embedded in the input asset object
    */
   public download (asset: IAsset) {
     return new Promise((resolve, reject) => {
       validatePublishedAsset(asset)
-      const out = request({ url: asset.url });
+      const out = request({ url: asset.url })
       out.on('response', response => {
         if (asset.download_id) {
-          let attachment: string = <string>response.headers['content-disposition']
+          const attachment: string = response.headers['content-disposition'] as string
           asset.filename =  decodeURIComponent(attachment.split('=')[1])
         }
       })
@@ -124,7 +124,7 @@ export class S3 {
    * const s3 = new S3(awsS3Instance, appConfig)
    * return s3.delete(asset: Iasset[])
    *  .then((deleteResponse) => console.log)
-   * 
+   *
    * @returns {Promise} Returns the delete marker details embedded in the input asset object
   */
   public delete (assets: IAsset[]) {
@@ -145,7 +145,7 @@ export class S3 {
                 return reject(error)
               }
               debug(`S3 asset (${asset.uid}) response ${JSON.stringify(response)}`)
-      
+
               return resolve(asset)
             })
           })
@@ -165,7 +165,7 @@ export class S3 {
    * const s3 = new S3(awsS3Instance, appConfig)
    * return s3.unpublish(asset: Iasset[])
    *  .then((deleteResponse) => console.log)
-   * 
+   *
    * @returns {Promise} Returns the delete marker details embedded in the input asset object
   */
   public unpublish (asset: IAsset) {

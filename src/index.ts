@@ -67,10 +67,11 @@ export const start = (config?: IConfig) => {
     try {
       appConfig = merge(internalConfig, appConfig, config || {})
       validateConfig(appConfig.assetStore)
+
       return init(appConfig.assetStore)
         .then((awsInstance) => {
           const s3 = new S3(awsInstance, appConfig)
-          
+
           return resolve(s3)
         })
         .catch(reject)
