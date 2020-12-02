@@ -3,9 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.S3 = void 0;
 const debug_1 = __importDefault(require("debug"));
-const path_1 = require("path");
 const lodash_1 = require("lodash");
+const path_1 = require("path");
 const request_1 = __importDefault(require("request"));
 const stream_1 = __importDefault(require("stream"));
 const validations_1 = require("./util/validations");
@@ -21,7 +22,7 @@ class S3 {
             const out = request_1.default({ url: asset.url });
             out.on('response', response => {
                 if (asset.download_id) {
-                    let attachment = response.headers['content-disposition'];
+                    const attachment = response.headers['content-disposition'];
                     asset.filename = decodeURIComponent(attachment.split('=')[1]);
                 }
             })

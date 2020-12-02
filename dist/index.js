@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.start = exports.setLogger = exports.getConfig = exports.setConfig = void 0;
 const lodash_1 = require("lodash");
 const config_1 = require("./config");
 const s3_1 = require("./s3");
 const setup_1 = require("./setup");
 const logger_1 = require("./util/logger");
-exports.setLogger = logger_1.setLogger;
+Object.defineProperty(exports, "setLogger", { enumerable: true, get: function () { return logger_1.setLogger; } });
 const validations_1 = require("./util/validations");
 let appConfig = {};
 exports.setConfig = (config) => {
