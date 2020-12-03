@@ -19,7 +19,7 @@ export interface AssetStoreConfig {
                 MaxAgeSeconds: number;
             }];
         };
-        Policy: {
+        Policy?: {
             Version?: string;
             Statement: [{
                 Sid?: string;

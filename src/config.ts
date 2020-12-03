@@ -21,7 +21,7 @@ export interface AssetStoreConfig {
         }
       ]
     },
-    Policy: {
+    Policy?: {
       Version?: string,
       Statement: [
         {
@@ -54,10 +54,10 @@ export const defaultConfig: AssetStoreConfig = {
     apiVersion: '2006-03-01', // Required
     bucketParams: {
       Bucket: '', // Required
-      ACL: 'public-read'
+      ACL: 'private'
     },
     uploadParams: {
-      ACL: 'public-read'
+      ACL: 'private'
     },
     CORSConfiguration: {
       CORSRules: [
@@ -70,18 +70,18 @@ export const defaultConfig: AssetStoreConfig = {
         }
       ]
     },
-    Policy: {
-      Version: '2012-10-17',
-      Statement: [
-        {
-          Sid: 'AddPerm',
-          Effect: 'Allow',
-          Principal: '*',
-          Action: ['s3:GetObject'],
-          Resource: ['arn:aws:s3:::<name>/*'] // Required
-        }
-      ]
-    },
+    // Policy: {
+    //   Version: '2012-10-17',
+    //   Statement: [
+    //     {
+    //       Sid: 'AddPerm',
+    //       Effect: 'Allow',
+    //       Principal: '*',
+    //       Action: ['s3:GetObject'],
+    //       Resource: ['arn:aws:s3:::<name>/*'] // Required
+    //     }
+    //   ]
+    // },
     internal: {
       requiredKeys: {
         publish: ['locale', 'uid', 'url'],

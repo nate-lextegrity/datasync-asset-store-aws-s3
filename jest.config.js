@@ -120,5 +120,8 @@ module.exports = {
   // watchPathIgnorePatterns: [],
 
   // Whether to use watchman for file crawling
-  watchman: true
+  watchman: true,
+
+  // default timeout is 5000 ms
+  testTimeout: 20000
 }
