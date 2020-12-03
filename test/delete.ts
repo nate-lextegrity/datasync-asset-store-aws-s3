@@ -18,19 +18,18 @@ let s3
 let driver
 
 // Set up connection to AWS s3
-beforeAll(() => {
-  return init(appConfig.assetStore)
+beforeAll(done => {
+  init(appConfig.assetStore)
     .then((s3Instance) => {
       s3 = s3Instance
       driver = new S3(s3, appConfig)
-      return
-    })
-}, 20 * 1000)
 
-beforeAll(() => {
-  nock('https://images.contentstack.io/v3/assets/stack-api-key')
-    .get('/three/three-v3/niki.png')
-    .reply(200, createReadStream(join(__dirname, 'assets', 'niki', 'niki.png')))
+      nock('https://images.contentstack.io/v3/assets/stack-api-key')
+        .get('/three/three-v3/niki.png')
+        .reply(200, createReadStream(join(__dirname, 'assets', 'niki', 'niki.png')))
+
+      done()
+    })
 })
 
 describe('# unpublish', () => {

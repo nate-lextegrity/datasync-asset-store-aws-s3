@@ -18,19 +18,18 @@ let s3
 let driver
 
 // Set up connection to AWS s3
-beforeAll(() => {
-  return init(appConfig.assetStore)
+beforeAll(done => {   
+  init(appConfig.assetStore)
     .then((s3Instance) => {
       s3 = s3Instance
       driver = new S3(s3, appConfig)
-      return
-    })
-}, 20 * 1000)
 
-beforeAll(() => {
-  nock('https://images.contentstack.io/v3/assets/stack-api-key')
-    .get('/one/one-v1/beats.png')
-    .reply(200, createReadStream(join(__dirname, 'assets', 'beats', 'beats.png', )), {'content-disposition': 'filename=beats'})
+      nock('https://images.contentstack.io/v3/assets/stack-api-key')
+        .get('/one/one-v1/beats.png')
+        .reply(200, createReadStream(join(__dirname, 'assets', 'beats', 'beats.png', )), {'content-disposition': 'filename=beats'})
+
+      done()
+    })
 })
 
 describe('# download', () => {
@@ -39,6 +38,8 @@ describe('# download', () => {
     const asset = data.data
     asset.download_id = true
 
+    // console.log('race condition B')
+    if (!driver) console.log('no driver')
     return driver.download(asset)
       .then((response) => {
         expect(response.uid).toEqual(asset.uid)

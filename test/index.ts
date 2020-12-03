@@ -5,15 +5,16 @@ import { setConfig, setLogger, start } from '../src/index'
 setConfig(config)
 
 describe('# Init', () => {
-  test('Connect to aws-s3-assets-store', () => {
-    return start()
+  test('Connect to aws-s3-assets-store', done => {
+    start()
       .then((s3Driver) => {
         expect(s3Driver).toHaveProperty('download')
         expect(s3Driver).toHaveProperty('delete')
         expect(s3Driver).toHaveProperty('unpublish')
-        return
+        
+        done()
       })
-  }, 20*1000)
+  })
 
   test('Set logger', () => {
     const logger = {

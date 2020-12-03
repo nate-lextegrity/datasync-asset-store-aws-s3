@@ -63,7 +63,6 @@ export class S3 {
     debug('Asset download invoked ' + JSON.stringify(asset))
 
     return new Promise((resolve, reject) => {
-      console.log('asset', asset)
       validatePublishedAsset(asset)
       const out = request({ url: asset.url })
       out.on('response', response => {

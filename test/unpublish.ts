@@ -18,34 +18,49 @@ let s3
 let driver
 
 // Set up connection to AWS s3
-beforeAll(() => {
-  return init(appConfig.assetStore)
+
+// beforeAll(() => {
+//   return init(appConfig.assetStore)
+//     .then((s3Instance) => {
+//       s3 = s3Instance
+//       driver = new S3(s3, appConfig)
+//       return
+//     })
+// }, 20 * 1000)
+
+// beforeAll(() => {
+//   nock('https://images.contentstack.io/v3/assets/stack-api-key')
+//     .get('/two/two-v2/cnn.png')
+//     .reply(200, createReadStream(join(__dirname, 'assets', 'cnn', 'cnn.png')))
+// })
+
+beforeAll(done => {
+  init(appConfig.assetStore)
     .then((s3Instance) => {
       s3 = s3Instance
       driver = new S3(s3, appConfig)
-      return
-    })
-}, 20 * 1000)
 
-beforeAll(() => {
-  nock('https://images.contentstack.io/v3/assets/stack-api-key')
-    .get('/two/two-v2/cnn.png')
-    .reply(200, createReadStream(join(__dirname, 'assets', 'cnn', 'cnn.png')))
+      nock('https://images.contentstack.io/v3/assets/stack-api-key')
+        .get('/two/two-v2/cnn.png')
+        .reply(200, createReadStream(join(__dirname, 'assets', 'cnn', 'cnn.png')))
+
+      done()
+    })
 })
 
 describe('# unpublish', () => {
-  test('Unpublish an asset from AWS S3', () => {
+  test('Unpublish an asset from AWS S3', done => {
     const data = require('./assets/cnn/index.json')
     const asset = data.data
 
-    return driver.download(asset)
+    driver.download(asset)
       .then((uploadResponse) => {
-        return driver.unpublish(uploadResponse)
+        driver.unpublish(uploadResponse)
           .then((unpublishResponse) => {
             expect(uploadResponse).toEqual(unpublishResponse)
 
-            return
+            done()
           })
       })
-  }, 20 * 1000)
+  })
 })
