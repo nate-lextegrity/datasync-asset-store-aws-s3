@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateDeletedAsset = exports.validateUnpublishedAsset = exports.validatePublishedAsset = exports.validateLogger = exports.validateConfig = void 0;
 const lodash_1 = require("lodash");
 const config_1 = require("../config");
-const requiredKeys = config_1.config.assetStore.internal.requiredKeys;
+const requiredKeys = config_1.defaultConfig.assetStore.internal.requiredKeys;
 exports.validateConfig = (config) => {
     if (typeof config.bucketParams !== 'object' || !(config.bucketParams.Bucket || config.bucketParams.name)) {
         throw new Error('Kindly provide valid bucket config');

@@ -1,7 +1,7 @@
 import { hasIn } from 'lodash'
-import { config as internalConfig } from '../config'
+import { defaultConfig } from '../config'
 
-const requiredKeys = internalConfig.assetStore.internal.requiredKeys
+const requiredKeys = defaultConfig.assetStore.internal.requiredKeys
 
 export const validateConfig = (config) => {
   if (typeof config.bucketParams !== 'object' || !(config.bucketParams.Bucket || config.bucketParams.name)) {

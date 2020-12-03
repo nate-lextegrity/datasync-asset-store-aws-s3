@@ -10,6 +10,7 @@
     "locale": "en-us",
     "file_size": "",
     "title": "Japanese stock SYM",
-    "description": ""
+    "description": "",
+    "Key": "some/asset/key"
   }
 }

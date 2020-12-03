@@ -5,7 +5,7 @@ import request from 'request'
 import stream from 'stream'
 import { validateDeletedAsset, validatePublishedAsset, validateUnpublishedAsset } from './util/validations'
 
-const debug = Debug('s3')
+const debug = Debug('content-store-aws-s3')
 
 /**
  * @interface
@@ -60,7 +60,10 @@ export class S3 {
    * @returns {Promise} Returns the uploaded file details embedded in the input asset object
    */
   public download (asset: IAsset) {
+    debug('Asset download invoked ' + JSON.stringify(asset))
+
     return new Promise((resolve, reject) => {
+      console.log('asset', asset)
       validatePublishedAsset(asset)
       const out = request({ url: asset.url })
       out.on('response', response => {
@@ -83,7 +86,7 @@ export class S3 {
   /**
    * @private
    * @method uploadStream
-   * @summary Uploads asset into AWS S2=3
+   * @summary Uploads asset into AWS S3
    * @param {object} asset Asset to be stored in AWS S3. Asset is of type: IAsset
    * @param {Promise} resolve Promise.resolve
    * @param {Promise} reject Promise.reject

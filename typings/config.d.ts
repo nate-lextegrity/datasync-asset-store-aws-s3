@@ -1,38 +1,41 @@
-export declare const config: {
+export interface AssetStoreConfig {
     assetStore: {
-        pattern: string;
+        pattern?: string;
         region: string;
         apiVersion: string;
         bucketParams: {
-            ACL: string;
+            Bucket: string;
+            ACL?: string;
         };
-        uploadParams: {
-            ACL: string;
+        uploadParams?: {
+            ACL?: string;
         };
-        CORSConfiguration: {
-            CORSRules: {
-                AllowedHeaders: string[];
-                AllowedMethods: string[];
-                AllowedOrigins: string[];
-                ExposeHeaders: any[];
+        CORSConfiguration?: {
+            CORSRules?: [{
+                AllowedHeaders?: string[];
+                AllowedMethods?: string[];
+                AllowedOrigins?: string[];
+                ExposeHeaders?: string[];
                 MaxAgeSeconds: number;
-            }[];
+            }];
         };
         Policy: {
-            Version: string;
-            Statement: {
-                Sid: string;
-                Effect: string;
-                Principal: string;
-                Action: string[];
-            }[];
+            Version?: string;
+            Statement: [{
+                Sid?: string;
+                Effect?: string;
+                Principal?: string;
+                Action?: string[];
+                Resource: string[];
+            }];
         };
-        internal: {
-            requiredKeys: {
-                publish: string[];
-                unpublish: string[];
-                delete: string[];
+        internal?: {
+            requiredKeys?: {
+                publish?: string[];
+                unpublish?: string[];
+                delete?: string[];
             };
         };
     };
-};
+}
+export declare const defaultConfig: AssetStoreConfig;

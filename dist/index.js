@@ -18,7 +18,7 @@ exports.getConfig = () => {
 exports.start = (config) => {
     return new Promise((resolve, reject) => {
         try {
-            appConfig = lodash_1.merge(config_1.config, appConfig, config || {});
+            appConfig = lodash_1.merge(config_1.defaultConfig, appConfig, config || {});
             validations_1.validateConfig(appConfig.assetStore);
             return setup_1.init(appConfig.assetStore)
                 .then((awsInstance) => {

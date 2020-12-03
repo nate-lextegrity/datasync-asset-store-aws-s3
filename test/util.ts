@@ -1,6 +1,6 @@
 import { cloneDeep, merge } from 'lodash'
 import { config as testConfig } from './config'
-import { config as defaultConfig } from '../src/config'
+import { defaultConfig } from '../src/config'
 import { buildAWSConfig, formatConfig } from '../src/util/index'
 import { setLogger } from '../src/util/logger'
 

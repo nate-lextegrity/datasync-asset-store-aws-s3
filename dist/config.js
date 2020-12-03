@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
-exports.config = {
+exports.defaultConfig = void 0;
+exports.defaultConfig = {
     assetStore: {
         pattern: '/:uid/:filename',
         region: 'us-east-1',
         apiVersion: '2006-03-01',
         bucketParams: {
+            Bucket: '',
             ACL: 'public-read'
         },
         uploadParams: {
@@ -31,6 +32,7 @@ exports.config = {
                     Effect: 'Allow',
                     Principal: '*',
                     Action: ['s3:GetObject'],
+                    Resource: ['arn:aws:s3:::<name>/*']
                 }
             ]
         },

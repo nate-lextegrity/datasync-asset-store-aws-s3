@@ -1,5 +1,5 @@
 import { merge } from 'lodash'
-import { config as internalConfig } from './config'
+import { defaultConfig } from './config'
 import { S3 } from './s3'
 import { init } from './setup'
 import { setLogger } from './util/logger'
@@ -65,7 +65,7 @@ export { setLogger }
 export const start = (config?: IConfig) => {
   return new Promise((resolve, reject) => {
     try {
-      appConfig = merge(internalConfig, appConfig, config || {})
+      appConfig = merge(defaultConfig, appConfig, config || {})
       validateConfig(appConfig.assetStore)
 
       return init(appConfig.assetStore)

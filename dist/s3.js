@@ -10,13 +10,14 @@ const path_1 = require("path");
 const request_1 = __importDefault(require("request"));
 const stream_1 = __importDefault(require("stream"));
 const validations_1 = require("./util/validations");
-const debug = debug_1.default('s3');
+const debug = debug_1.default('content-store-aws-s3');
 class S3 {
     constructor(s3, config) {
         this.config = config.assetStore;
         this.s3 = s3;
     }
     download(asset) {
+        debug('Asset download invoked ' + JSON.stringify(asset));
         return new Promise((resolve, reject) => {
             validations_1.validatePublishedAsset(asset);
             const out = request_1.default({ url: asset.url });
